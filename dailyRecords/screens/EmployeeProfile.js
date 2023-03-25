@@ -63,7 +63,6 @@ export default EmployeeProfile
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
         backgroundColor: palette.secondary,
         width: "100%"
     },

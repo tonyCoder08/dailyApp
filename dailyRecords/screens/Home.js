@@ -1,12 +1,19 @@
-import { Platform, ScrollView, TouchableOpacity } from "react-native";
+import { Platform, ScrollView, StatusBar, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import EmployeeBox from "../components/EmployeeBox";
-import { design, employees, palette } from "../constants";
+import { design, employees, palette, sites } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import SiteBox from "../components/SiteBox";
+import { StatusBarStyle } from 'react-native';
 const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
+            <StatusBar
+                animated={true}
+                backgroundColor={palette.primary}
+                barStyle={'dark-content'}
+            />
             <View style={styles.headerContainer}>
                 <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
                 </Image>
@@ -48,35 +55,9 @@ const Home = ({ navigation }) => {
                 <Text style={styles.sectionHeading}>Sites  </Text>
 
                 {/* for sites */}
-                <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* sites  */}
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Client Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                        <View style={[componentStyles.badge, { backgroundColor: palette.blue }]}>
-                            <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>Done</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Client Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                        <View style={[componentStyles.badge, { backgroundColor: palette.success }]}>
-                            <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>In Progress</Text>
-                        </View>
-
-                    </View>
-                </TouchableOpacity>
+                {
+                    sites.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} />)
+                }
             </ScrollView>
         </View>
     )
@@ -87,7 +68,6 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
         backgroundColor: palette.secondary,
         width: "100%"
     },
@@ -125,7 +105,7 @@ const styles = StyleSheet.create({
     sectionHeading: {
         fontSize: 18,
         fontFamily: "Inter_400Regular",
-        marginVertical: 10
+        marginBottom: 10
 
     },
     SectionBox: {
