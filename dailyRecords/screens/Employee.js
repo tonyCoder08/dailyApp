@@ -3,20 +3,25 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette } from "../constants";
 
 
-import { TimeDatePicker,Modes } from "react-native-time-date-picker";
+import { TimeDatePicker, Modes } from "react-native-time-date-picker";
 
 
 
-const Employee = ({navigation,route}) => {
-    const employee= route.params?.employee
-    console.log(employee)
+const Employee = ({ navigation, route }) => {
+    const employee = route.params?.employee
     const time = new Date()
     const now = time.getTime()
+    const handlePress = () => {
+        navigation.navigate("EmployeeProfile",{employee})
+    }
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: employee?.profile }}>
-                </Image>
+                <TouchableOpacity onPress={handlePress}>
+
+                    <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: employee?.profile }}>
+                    </Image>
+                </TouchableOpacity>
                 {/* details */}
                 <View>
                     {/* name */}
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     },
     Section: {
         padding: design.paddingSize,
-        flex:1
+        flex: 1
 
     },
     sectionHeading: {
