@@ -1,4 +1,4 @@
-const palette = {
+export const palette = {
     primary:"#fff",
     secondary:"#F8F9FA",
     textColor:"#11181C",
@@ -7,6 +7,7 @@ const palette = {
     successTextColor:"#419E5B"
 }
 
-const design = {
+export const design = {
+    paddingSize:10,
     borderRadius:11,
 }
