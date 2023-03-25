@@ -1,47 +1,34 @@
 import { Platform, TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette } from "../constants";
 
-const Home = ({navigation}) => {
+const Employee = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
+                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg' }}>
                 </Image>
                 {/* details */}
                 <View>
                     {/* name */}
                     <Text style={styles.userName}>
-                        Nimbaram Suthar
+                        Employee Name
                     </Text >
                     {/* designation */}
                     <Text style={styles.userDesignation}>
-                        Contractor
+                        Employee
                     </Text>
                 </View>
 
             </View>
             <View style={styles.HomeSection}>
 
-                <Text style={styles.sectionHeading}>Employees </Text>
+                <Text style={styles.sectionHeading}>Calendar </Text>
 
                 {/* for employees */}
-                <TouchableOpacity onPress={() => navigation.navigate("Employee")} activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* employee profile */}
-                    <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
-                    </Image>
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Employee Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                    </View>
-                </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
                     {/* employee profile */}
-                    <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
+                    {/* <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
                     </Image>
                     <View style={styles.EmployeeDetails}>
                         <Text style={styles.employeeName}>
@@ -50,9 +37,10 @@ const Home = ({navigation}) => {
                         <Text style={styles.atPlace}>
                             At. Address
                         </Text>
-                    </View>
+                    </View> */}
                 </TouchableOpacity>
-                <Text style={styles.sectionHeading}>Sites  </Text>
+
+                <Text style={styles.sectionHeading}>Previous Sites  </Text>
 
                 {/* for sites */}
                 <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
@@ -64,9 +52,9 @@ const Home = ({navigation}) => {
                         <Text style={styles.atPlace}>
                             At. Address
                         </Text>
-                        <View style={[componentStyles.badge, { backgroundColor: palette.blue }]}>
+                        {/* <View style={[componentStyles.badge, { backgroundColor: palette.blue }]}>
                             <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>Done</Text>
-                        </View>
+                        </View> */}
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
@@ -78,9 +66,9 @@ const Home = ({navigation}) => {
                         <Text style={styles.atPlace}>
                             At. Address
                         </Text>
-                        <View style={[componentStyles.badge, { backgroundColor: palette.success }]}>
+                        {/* <View style={[componentStyles.badge, { backgroundColor: palette.success }]}>
                             <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>In Progress</Text>
-                        </View>
+                        </View> */}
 
                     </View>
                 </TouchableOpacity>
@@ -89,7 +77,7 @@ const Home = ({navigation}) => {
     )
 
 }
-export default Home;
+export default Employee;
 
 const styles = StyleSheet.create({
     container: {
