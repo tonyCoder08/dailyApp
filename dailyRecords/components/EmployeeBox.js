@@ -9,7 +9,7 @@ const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
             employee: {
                 id: id,
                 name: name,
-                profile:profile
+                profile: profile
             }
         })
     }
@@ -23,7 +23,10 @@ const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
                     {name}
                 </Text>
                 <Text style={styles.atPlace}>
-                    At. {currently}
+                    At.{" "}
+                    <Text style={[styles.atPlace,{color:palette.blueTextColor,fontFamily:"Inter_400Regular"}]}>
+                        {currently}
+                    </Text>
                 </Text>
             </View>
         </TouchableOpacity>
@@ -60,5 +63,23 @@ const styles = StyleSheet.create({
         fontSize: 15
         ,
         fontFamily: "Inter_400Regular"
+    }
+})
+
+const componentStyles = StyleSheet.create({
+    badge: {
+        padding: 3,
+        borderRadius: 9,
+        alignItems: "center",
+        backgroundColor: palette.success
+
+
+
+    },
+    badgeText: {
+        fontSize: 15,
+        fontFamily: "Inter_400Regular",
+        color: palette.successTextColor,
+
     }
 })
