@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
 
                 {/* dynamic employee */}
                 {
-                    employees.map((employee) => <EmployeeBox name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+                    employees.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
                 }
 
 

@@ -7,19 +7,21 @@ import { TimeDatePicker,Modes } from "react-native-time-date-picker";
 
 
 
-const Employee = () => {
+const Employee = ({navigation,route}) => {
+    const employee= route.params?.employee
+    console.log(employee)
     const time = new Date()
     const now = time.getTime()
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg' }}>
+                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: employee?.profile }}>
                 </Image>
                 {/* details */}
                 <View>
                     {/* name */}
                     <Text style={styles.userName}>
-                        Employee Name
+                        {employee?.name}
                     </Text >
                     {/* designation */}
                     <Text style={styles.userDesignation}>

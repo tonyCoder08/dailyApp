@@ -2,13 +2,19 @@ import { Text, View } from "react-native";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { design, palette } from "../constants";
 
-const EmployeeBox = ({id,name,currently,profile,navigation}) => {
+const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
 
     const handlePress = () => {
-        
+        navigation.navigate("Employee", {
+            employee: {
+                id: id,
+                name: name,
+                profile:profile
+            }
+        })
     }
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("Employee")} activeOpacity={0.6} style={styles.SectionBox}>
+        <TouchableOpacity onPress={handlePress} activeOpacity={0.6} style={styles.SectionBox}>
             {/* employee profile */}
             <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: profile }}>
             </Image>
