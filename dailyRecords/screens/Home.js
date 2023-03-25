@@ -1,12 +1,44 @@
 import { Platform, ScrollView, StatusBar, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import EmployeeBox from "../components/EmployeeBox";
-import { design, employees, palette, sites } from "../constants";
+import { design, palette, sites } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SiteBox from "../components/SiteBox";
 import { StatusBarStyle } from 'react-native';
+import Option from "../components/Option";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
+
 const Home = ({ navigation }) => {
+    const [showAddOption, setShowAddOption] = useState(false)
+    const [employees,setEmployees] = useState([])
+    const handleShowOption =() => {
+        setShowAddOption(!showAddOption)
+    }
+
+    const isFocused = useIsFocused()
+
+
+    const getEmployees =async() => {
+        const list = await AsyncStorage.getItem("@employees")
+        const listJson = JSON.parse(list)
+        setEmployees(listJson)        
+    }
+
+
+    useEffect(() =>{
+        if(isFocused) {
+            getEmployees()
+        }
+    },[isFocused])
+
+
+    useEffect(() => {
+        getEmployees()
+    },[])
     return (
         <View style={styles.container}>
             <StatusBar
@@ -28,7 +60,7 @@ const Home = ({ navigation }) => {
                         Contractor
                     </Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.6}>
+                <TouchableOpacity activeOpacity={0.6} onPress={handleShowOption}>
 
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
@@ -38,18 +70,19 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>
+            {
+                showAddOption &&
+                <Option navigation={navigation} />
+            }
             <ScrollView style={styles.HomeSection}>
 
                 <Text style={styles.sectionHeading}>Employees </Text>
 
-                {/* for employees */}
-
-
-
                 {/* dynamic employee */}
                 {
-                    employees.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+                    employees?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
                 }
+                
 
 
                 <Text style={styles.sectionHeading}>Sites  </Text>
