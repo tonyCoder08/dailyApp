@@ -1,6 +1,7 @@
 import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette } from "../constants";
+import Feather from '@expo/vector-icons/Feather';
 
 
 import { TimeDatePicker, Modes } from "react-native-time-date-picker";
@@ -12,7 +13,7 @@ const Employee = ({ navigation, route }) => {
     const time = new Date()
     const now = time.getTime()
     const handlePress = () => {
-        navigation.navigate("EmployeeProfile",{employee})
+        navigation.navigate("EmployeeProfile", { employee })
     }
     return (
         <View style={styles.container}>
@@ -23,7 +24,7 @@ const Employee = ({ navigation, route }) => {
                     </Image>
                 </TouchableOpacity>
                 {/* details */}
-                <View>
+                <View style={{ flex: 1 }}>
                     {/* name */}
                     <Text style={styles.userName}>
                         {employee?.name}
@@ -33,6 +34,10 @@ const Employee = ({ navigation, route }) => {
                         Employee
                     </Text>
                 </View>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate("Home")}>
+
+                    <Feather style={styles.headerIcon} name="home" color={palette.textColor} size={25} />
+                </TouchableOpacity>
 
             </View>
             <ScrollView style={styles.Section}>

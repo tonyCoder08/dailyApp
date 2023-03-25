@@ -19,7 +19,7 @@ const EmployeeProfile = ({ navigation, route }) => {
                 <Text style={styles.headerTitle}>
                     Employee Profile
                 </Text>
-
+                
             </View>
 
             {/* user profile */}

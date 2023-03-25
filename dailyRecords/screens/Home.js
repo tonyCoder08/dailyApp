@@ -2,7 +2,8 @@ import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import EmployeeBox from "../components/EmployeeBox";
 import { design, employees, palette } from "../constants";
-
+import Feather from '@expo/vector-icons/Feather';
+import Ionicons from '@expo/vector-icons/Ionicons';
 const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
@@ -10,7 +11,7 @@ const Home = ({ navigation }) => {
                 <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
                 </Image>
                 {/* details */}
-                <View>
+                <View style={{ flex: 1 }}>
                     {/* name */}
                     <Text style={styles.userName}>
                         Nimbaram Suthar
@@ -20,6 +21,14 @@ const Home = ({ navigation }) => {
                         Contractor
                     </Text>
                 </View>
+                <TouchableOpacity activeOpacity={0.6}>
+
+                    <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.6}>
+
+                    <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
+                </TouchableOpacity>
 
             </View>
             <ScrollView style={styles.HomeSection}>
@@ -27,7 +36,7 @@ const Home = ({ navigation }) => {
                 <Text style={styles.sectionHeading}>Employees </Text>
 
                 {/* for employees */}
-                
+
 
 
                 {/* dynamic employee */}
@@ -92,6 +101,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
+    headerIcon: {
+        marginRight: 10
+    },
     ownerProfile: {
         resizeMode: "contain",
         borderRadius: design.borderRadiusProfile,
@@ -107,7 +119,7 @@ const styles = StyleSheet.create({
     },
     HomeSection: {
         padding: design.paddingSize,
-        flex:1
+        flex: 1
 
     },
     sectionHeading: {
