@@ -1,8 +1,15 @@
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette } from "../constants";
 
+
+import { TimeDatePicker,Modes } from "react-native-time-date-picker";
+
+
+
 const Employee = () => {
+    const time = new Date()
+    const now = time.getTime()
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -21,23 +28,33 @@ const Employee = () => {
                 </View>
 
             </View>
-            <View style={styles.HomeSection}>
+            <ScrollView style={styles.Section}>
 
                 <Text style={styles.sectionHeading}>Calendar </Text>
 
                 {/* for employees */}
                 <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* employee profile */}
-                    {/* <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
-                    </Image>
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Employee Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                    </View> */}
+                    <TimeDatePicker
+                        selectedDate={now}
+                        mode={Modes.calendar}
+                        options={{
+                            daysStyle: {
+                                borderRadius: 16,
+                                borderWidth: 0.5,
+                                borderColor: "#f1f1f1",
+                            },
+                            is24Hour: false,
+                        }}
+                        onMonthYearChange={(month) => {
+                            console.log("month: ", month);
+                        }}
+                        onSelectedChange={(selected) => {
+                            console.log("selected: ", selected);
+                        }}
+                        onTimeChange={(time) => {
+                            console.log("time: ", time);
+                        }}
+                    />
                 </TouchableOpacity>
 
                 <Text style={styles.sectionHeading}>Previous Sites  </Text>
@@ -72,7 +89,8 @@ const Employee = () => {
 
                     </View>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
+
         </View>
     )
 
@@ -109,8 +127,9 @@ const styles = StyleSheet.create({
         fontFamily: "Inter_300Light",
         fontSize: 15
     },
-    HomeSection: {
-        padding: design.paddingSize
+    Section: {
+        padding: design.paddingSize,
+        flex:1
 
     },
     sectionHeading: {

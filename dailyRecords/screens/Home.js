@@ -1,8 +1,9 @@
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
-import { design, palette } from "../constants";
+import EmployeeBox from "../components/EmployeeBox";
+import { design, employees, palette } from "../constants";
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -21,37 +22,20 @@ const Home = ({navigation}) => {
                 </View>
 
             </View>
-            <View style={styles.HomeSection}>
+            <ScrollView style={styles.HomeSection}>
 
                 <Text style={styles.sectionHeading}>Employees </Text>
 
                 {/* for employees */}
-                <TouchableOpacity onPress={() => navigation.navigate("Employee")} activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* employee profile */}
-                    <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
-                    </Image>
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Employee Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* employee profile */}
-                    <Image style={styles.ownerProfile} source={{ width: 90, height: 90, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
-                    </Image>
-                    <View style={styles.EmployeeDetails}>
-                        <Text style={styles.employeeName}>
-                            Employee Name
-                        </Text>
-                        <Text style={styles.atPlace}>
-                            At. Address
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                
+
+
+                {/* dynamic employee */}
+                {
+                    employees.map((employee) => <EmployeeBox name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+                }
+
+
                 <Text style={styles.sectionHeading}>Sites  </Text>
 
                 {/* for sites */}
@@ -84,7 +68,7 @@ const Home = ({navigation}) => {
 
                     </View>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         </View>
     )
 
@@ -122,7 +106,8 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
     HomeSection: {
-        padding: design.paddingSize
+        padding: design.paddingSize,
+        flex:1
 
     },
     sectionHeading: {

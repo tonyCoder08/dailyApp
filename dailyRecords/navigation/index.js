@@ -6,8 +6,8 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Employee" component={Employee}  options={{headerShown:false}}/>
             <Stack.Screen name="Home" component={Home}  options={{headerShown:false}}/>
+            <Stack.Screen name="Employee" component={Employee}  options={{headerShown:false}}/>
         </Stack.Navigator>
     )
 }
