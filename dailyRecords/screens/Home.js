@@ -1,11 +1,10 @@
 import { Platform, ScrollView, StatusBar, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import EmployeeBox from "../components/EmployeeBox";
-import { design, palette, sites } from "../constants";
+import { design, palette, employees as employeeCon, sites as sitesCon } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SiteBox from "../components/SiteBox";
-import { StatusBarStyle } from 'react-native';
 import Option from "../components/Option";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,31 +13,41 @@ import { useIsFocused } from "@react-navigation/native";
 
 const Home = ({ navigation }) => {
     const [showAddOption, setShowAddOption] = useState(false)
-    const [employees,setEmployees] = useState([])
-    const handleShowOption =() => {
+    const [employees, setEmployees] = useState([])
+    const [sites, setSites] = useState([])
+    const handleShowOption = () => {
         setShowAddOption(!showAddOption)
     }
 
     const isFocused = useIsFocused()
 
 
-    const getEmployees =async() => {
+    const getEmployees = async () => {
         const list = await AsyncStorage.getItem("@employees")
         const listJson = JSON.parse(list)
-        setEmployees(listJson)        
+        setEmployees(listJson)
+    }
+
+    const getSites = async () => {
+        const list = await AsyncStorage.getItem("@sites")
+        const listJSON = await JSON.parse(list)
+        setSites(listJSON)
     }
 
 
-    useEffect(() =>{
-        if(isFocused) {
+    useEffect(() => {
+        if (isFocused) {
             getEmployees()
+            getSites()
+
         }
-    },[isFocused])
+    }, [isFocused])
 
 
     useEffect(() => {
         getEmployees()
-    },[])
+        getSites()
+    }, [])
     return (
         <View style={styles.container}>
             <StatusBar
@@ -72,24 +81,27 @@ const Home = ({ navigation }) => {
             </View>
             {
                 showAddOption &&
-                <Option navigation={navigation} />
-            }
-            <ScrollView style={styles.HomeSection}>
-
-                <Text style={styles.sectionHeading}>Employees </Text>
+                <Option navigation={navigation} />-
 
                 {/* dynamic employee */}
                 {
-                    employees?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+                    employees ?
+                        employees?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+                        :
+                        employeeCon?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
+
                 }
-                
+
 
 
                 <Text style={styles.sectionHeading}>Sites  </Text>
 
                 {/* for sites */}
-                {
+                {sites ?
                     sites.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} />)
+                    :
+                    sitesCon.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} />)
+
                 }
             </ScrollView>
         </View>
