@@ -5,6 +5,11 @@ import { palette } from "../constants";
 import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+
+
+
+const tempProfile = 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg'
+const tempAvatar = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png'
 const AddEmployee = ({ navigation }) => {
     const [storage, setStorage] = useState([])
     const [name, setName] = useState("")
@@ -41,7 +46,7 @@ const AddEmployee = ({ navigation }) => {
             name,
             email,
             phone,
-            profile: image
+            profile: image || tempAvatar
         }
         const list = storage
         list.push(data)
@@ -85,7 +90,7 @@ const AddEmployee = ({ navigation }) => {
             </View>
             <View style={globalstyles.Section}>
                 <View style={[globalstyles.box]}>
-                    <Image style={globalstyles.ownerProfile} source={{ width: 108, height: 108, uri: image || 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
+                    <Image style={globalstyles.ownerProfile} source={{ width: 108, height: 108, uri: image ||  tempProfile}}>
                     </Image>
                     <TouchableOpacity style={[globalstyles.box, { marginTop: 10 }]} onPress={pickImage}>
                         <Text style={styles.text}>

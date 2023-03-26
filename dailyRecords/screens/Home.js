@@ -41,6 +41,9 @@ const Home = ({ navigation }) => {
             getSites()
 
         }
+        if(!isFocused) {
+            setShowAddOption(false)
+        }
     }, [isFocused])
 
 
@@ -79,9 +82,12 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>
-            {
-                showAddOption &&
-                <Option navigation={navigation} />-
+            <ScrollView style={styles.HomeSection} >
+
+                {
+                    showAddOption &&
+                    <Option navigation={navigation} />
+                }
 
                 {/* dynamic employee */}
                 {
@@ -104,7 +110,7 @@ const Home = ({ navigation }) => {
 
                 }
             </ScrollView>
-        </View>
+        </View >
     )
 
 }
