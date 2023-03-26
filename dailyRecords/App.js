@@ -7,6 +7,7 @@ export default function App() {
     Inter_600SemiBold,
     Inter_300Light, Inter_400Regular, Inter_500Medium
   });
+  
 
   if (!fontsLoaded) {
     return null;
