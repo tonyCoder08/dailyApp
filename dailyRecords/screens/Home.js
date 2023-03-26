@@ -89,7 +89,9 @@ const Home = ({ navigation }) => {
                     <Option navigation={navigation} />
                 }
 
+
                 {/* dynamic employee */}
+                <Text style={styles.sectionHeading}>Employees </Text>
                 {
                     employees ?
                         employees?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)

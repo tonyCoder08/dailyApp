@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { globalstyles } from "../constants/styles";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { palette } from "../constants";
@@ -39,15 +39,21 @@ const AddSite = ({ navigation }) => {
     const handleSave = () => {
         const siteData = {
             id:id,
-            Architect:Architect,
-            client_name:clientName,
-            email:email,
-            phone:phone
+            Architect:Architect || "unknown",
+            client_name:clientName ||" unknown",
+            email:email || "unknown@gmail.com",
+            phone:phone ||"919342349234",
+            address:address||"unknown"
         }
         const list = storage
         list.push(siteData)
 
         saveSiteToStorage(list)
+        goToHome()
+    }
+
+    const goToHome = () => {
+        navigation.goBack()
     }
 
 
@@ -73,7 +79,7 @@ const AddSite = ({ navigation }) => {
 
 
                 <View style={globalstyles.box}>
-                    <TextInput onChangeText={setArchitect}  placeholder="Architect Name"></TextInput>
+                    <TextInput required onChangeText={setArchitect}  placeholder="Architect Name"></TextInput>
                 </View>
                 <View style={globalstyles.box}>
                     <TextInput onChangeText={setClientName} placeholder="Client Name"></TextInput>
@@ -101,3 +107,25 @@ const AddSite = ({ navigation }) => {
 }
 export default AddSite;
 
+
+
+const styles = StyleSheet.create({
+    text: {
+        fontSize: 11,
+        fontFamily: "Inter_400Regular",
+
+    },
+    button: {
+        padding: 10,
+        backgroundColor: "#11181C",
+        borderColor: palette.borderColor,
+        borderWidth: 1,
+        borderRadius: 11,
+        alignItems: "center"
+
+    },
+    buttonText: {
+        fontSize: 20,
+        color: "#D9D9D9",
+    }
+})
