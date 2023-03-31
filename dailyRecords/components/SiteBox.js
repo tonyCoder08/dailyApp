@@ -1,6 +1,7 @@
-import { Text, View } from "react-native";
+import { Text, Vibration, View } from "react-native";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { design, palette } from "../constants";
+import { shortVibrate } from "../constants/vibration";
 
 const SiteBox = ({ id, client_name,address,state,navigation }) => {
 
@@ -13,6 +14,7 @@ const SiteBox = ({ id, client_name,address,state,navigation }) => {
                 state:state
             }
         })
+        shortVibrate()
     }
 
     const getBadgeBgColor =() => {

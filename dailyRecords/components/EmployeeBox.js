@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { design, palette } from "../constants";
+import { shortVibrate } from "../constants/vibration";
 
 const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
 
@@ -12,6 +13,7 @@ const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
                 profile: profile
             }
         })
+        shortVibrate()
     }
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.6} style={styles.SectionBox}>
