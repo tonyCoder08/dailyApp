@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
 
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6}>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate("Settings")}>
 
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>
