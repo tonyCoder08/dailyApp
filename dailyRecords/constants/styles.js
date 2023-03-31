@@ -9,7 +9,7 @@ export const globalstyles = StyleSheet.create({
     },
     headerContainer: {
         width: "100%",
-        // height:70,
+        minHeight:70,
         borderBottomColor: palette.borderColor,
         borderBottomWidth: 1,
         backgroundColor: palette.primary,
