@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
 
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6}>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate("Settings")}>
 
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>
@@ -106,9 +106,9 @@ const Home = ({ navigation }) => {
 
                 {/* for sites */}
                 {sites ?
-                    sites.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} />)
+                    sites.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} navigation={navigation} />)
                     :
-                    sitesCon.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} />)
+                    sitesCon.map(site => <SiteBox id={site.id} key={site.id} architect={site.Architect} client_name={site.client_name} address={site.address} state={site.state} navigation={navigation}  />)
 
                 }
             </ScrollView>

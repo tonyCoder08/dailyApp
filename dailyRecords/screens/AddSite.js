@@ -37,19 +37,22 @@ const AddSite = ({ navigation }) => {
 
     },[])
     const handleSave = () => {
-        const siteData = {
-            id:id,
-            Architect:Architect || "unknown",
-            client_name:clientName ||" unknown",
-            email:email || "unknown@gmail.com",
-            phone:phone ||"919342349234",
-            address:address||"unknown"
+        if(clientName) {
+            const siteData = {
+                id:id,
+                Architect:Architect || "unknown",
+                client_name:clientName ||" unknown",
+                email:email || "unknown@gmail.com",
+                phone:phone ||"919342349234",
+                address:address||"unknown",
+                state:"Not Started"
+            }
+            const list = storage
+            list.push(siteData)
+    
+            saveSiteToStorage(list)
+            goToHome()
         }
-        const list = storage
-        list.push(siteData)
-
-        saveSiteToStorage(list)
-        goToHome()
     }
 
     const goToHome = () => {

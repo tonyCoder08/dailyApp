@@ -1,18 +1,20 @@
-import { Text, View } from "react-native";
+import { Text, Vibration, View } from "react-native";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { design, palette } from "../constants";
+import { shortVibrate } from "../constants/vibration";
 
 const SiteBox = ({ id, client_name,address,state,navigation }) => {
 
     const handlePress = () => {
-        navigation.navigate("Employee", {
+        navigation.navigate("Site", {
             site: {
-                id: id,
-                client_name,
-                address,
-                state:"Done"
+                id:id,
+                client_name:client_name,
+                address:address,
+                state:state
             }
         })
+        shortVibrate()
     }
 
     const getBadgeBgColor =() => {
@@ -37,8 +39,10 @@ const SiteBox = ({ id, client_name,address,state,navigation }) => {
             return palette.blueTextColor
         }
     }
+
+    // for onPress
     return (
-        <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
+        <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox} onPress={handlePress}>
             {/* sites  */}
                 <Text style={styles.employeeName}>
                     {client_name}
