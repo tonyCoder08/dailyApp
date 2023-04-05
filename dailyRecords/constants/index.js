@@ -12,7 +12,8 @@ export const palette = {
 }
 export const timeline ={
     present:"#4EA8DE",
-    absent:"#DC2F02"
+    absent:"#DC2F02",
+    primary:"#4EA8DE"
 }
 
 export const design = {
