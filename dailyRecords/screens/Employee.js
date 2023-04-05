@@ -1,15 +1,18 @@
 import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { design, palette } from "../constants";
+import { design, palette, timeline } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
 
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { TimeDatePicker, Modes } from "react-native-time-date-picker";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import { useIsFocused } from "@react-navigation/native";
 
 
 const Employee = ({ navigation, route }) => {
+    const isFocused = useIsFocused()
+    const day = route.params?.day
 
     const [days, setDays] = useState({
         '2023-04-04': { disabled: true, startingDay: true, color: '#48BFE3', endingDay: true },
@@ -21,6 +24,9 @@ const Employee = ({ navigation, route }) => {
     })
     const employee = route.params?.employee
 
+    const getDayBgColor = () =>{
+        return day?.attendance == "Present"?timeline.present:timeline.absent
+    } 
     const time = new Date()
     const now = time.getTime()
     const handlePress = () => {
@@ -28,9 +34,20 @@ const Employee = ({ navigation, route }) => {
     }
 
     const onDayPress = useCallback((day) => {
-        console.log("day clicked",day)
-        navigation.navigate("Day")
+        navigation.navigate("Day",{day})
       }, []);
+
+
+    const addDay = () => {
+        setDays({...days,[day?.date]:{ disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" }})
+    }
+
+
+    useEffect(() => {
+        if(route.params) {
+            addDay()
+        }
+    },[isFocused])
     
     
     return (
