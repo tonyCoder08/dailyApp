@@ -37,5 +37,22 @@ export const globalstyles = StyleSheet.create({
         resizeMode: "contain",
         borderRadius: design.borderRadiusProfile,
         marginRight: 10
+    },text: {
+        fontSize: 11,
+        fontFamily: "Inter_400Regular",
+
     },
+    button: {
+        padding: 10,
+        backgroundColor: "#11181C",
+        borderColor: palette.borderColor,
+        borderWidth: 1,
+        borderRadius: 11,
+        alignItems: "center"
+
+    },
+    buttonText: {
+        fontSize: 20,
+        color: "#D9D9D9",
+    }
 })
