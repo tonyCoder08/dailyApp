@@ -6,6 +6,7 @@ import EmployeeProfile from '../screens/EmployeeProfile';
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
 import SitePage from '../screens/SitePage';
+import Day from '../screens/Day';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -18,6 +19,7 @@ export default function StackNavigation() {
             <Stack.Screen name="AddEmployee" component={AddEmployee} options={{ headerShown: false }} />
             <Stack.Screen name="AddSite" component={AddSite} options={{ headerShown: false }} />
             <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
+            <Stack.Screen name="Day" component={Day} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
