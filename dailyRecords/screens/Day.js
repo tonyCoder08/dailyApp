@@ -4,27 +4,54 @@ import Header from '../components/Header'
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react'
 import { NavigationHelpersContext } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { timeline } from '../constants';
 
 
 const month = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 export default Day = ({navigation,route}) => {
     const [attendance, setAttendance] = useState("Present")
     const [date,setDate]=useState("")
-
+    const [storage,setStorage] =useState([])
     const day = route.params.day
 
     useEffect(() => {
         setDate(day.dateString)
     },[day])
 
-    const handleSaveDay =() =>{
-        navigation.navigate("Employee",{day:{
-            attendance:attendance,
-            date:date,
-
-        }})
+    const getDayBgColor = () => {
+        return attendance == "Present" ? timeline.present : timeline.absent
     }
 
+    const handleSaveDay =() =>{
+        // navigation.navigate("Employee",{day:{
+        //     attendance:attendance,
+        //     date:date,
+
+
+        // }})
+
+        let data= storage
+        let newData = { ...data, [date]: { disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" }}
+        
+        addDayToStorage(newData)
+    }
+
+    const addDayToStorage = async (day) => {
+        const dayString = JSON.stringify(day)
+        await AsyncStorage.setItem("@days",dayString)
+    }
+
+    const getDayData = async () => {
+        const data = await AsyncStorage.getItem("@days")
+        const dataJson = JSON.parse(data)
+        setStorage(dataJson)
+    }
+
+
+    useEffect(() => {
+        getDayData()
+    },[])
 
 
 
