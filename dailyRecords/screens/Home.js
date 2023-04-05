@@ -9,7 +9,8 @@ import Option from "../components/Option";
 import { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
-
+import { auth, firestore } from "../firebase";
+import { createUserWithEmailAndPassword, getAuth,signInWithEmailAndPassword } from "firebase/auth";
 
 const Home = ({ navigation }) => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -18,6 +19,55 @@ const Home = ({ navigation }) => {
     const [sites, setSites] = useState([])
     const buttonRef = useRef(null);
     const isFocused = useIsFocused()
+
+
+
+    const auth = getAuth()
+
+    const email = "maddyyyyy6@gmail.com"
+    const password = "mahendra"
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+        console.log("sign upped")
+    }).catch(error => {
+        console.log(error)
+    })
+
+
+    const signInExistingUser =() => {
+
+        signInWithEmailAndPassword(auth,email,password).then((userCredential) => {
+            const user = userCredential.user
+            console.log("signned in")
+        }).catch((error)=> {
+            console.log(error)
+        })
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     const handleShowOption = () => {
@@ -83,7 +133,7 @@ const Home = ({ navigation }) => {
                 <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption} onLayout={onButtonLayout}>
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate("Settings")}>
+                <TouchableOpacity activeOpacity={0.6} onPress={createUserWithEmailAndPassword}>
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>
 
