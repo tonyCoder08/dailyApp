@@ -10,6 +10,10 @@ export const palette = {
     yellow: "#FFE070",
     yellowTextColor: "#FF7070"
 }
+export const timeline ={
+    present:"#4EA8DE",
+    absent:"#DC2F02"
+}
 
 export const design = {
     paddingSize: 10,
