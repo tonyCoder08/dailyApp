@@ -3,18 +3,36 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
 
-
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { TimeDatePicker, Modes } from "react-native-time-date-picker";
+import { useCallback, useState } from "react";
 
 
 
 const Employee = ({ navigation, route }) => {
+
+    const [days, setDays] = useState({
+        '2023-04-04': { disabled: true, startingDay: true, color: '#48BFE3', endingDay: true },
+        '2023-04-01': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
+        '2023-04-02': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
+        '2023-04-03': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
+        '2023-04-07': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
+        '2023-04-05': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
+    })
     const employee = route.params?.employee
+
     const time = new Date()
     const now = time.getTime()
     const handlePress = () => {
         navigation.navigate("EmployeeProfile", { employee })
     }
+
+    const onDayPress = useCallback((day) => {
+        console.log("day clicked",day)
+        navigation.navigate("Day")
+      }, []);
+    
+    
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -45,17 +63,21 @@ const Employee = ({ navigation, route }) => {
                 <Text style={styles.sectionHeading}>Calendar </Text>
 
                 {/* for employees */}
-                <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-                    <TimeDatePicker
+                {/* <TouchableOpacity activeOpacity={0.6} style={[styles.SectionBox, { alignContent: "center", alignItems: "center" }]}> */}
+                {/* <TimeDatePicker
                         selectedDate={now}
                         mode={Modes.calendar}
                         options={{
                             daysStyle: {
-                                borderRadius: 16,
+                                borderRadius: 11,
                                 borderWidth: 0.5,
                                 borderColor: "#f1f1f1",
+                                fontSize: 20
                             },
+                            defaultFont: "Inter_400Regular",
+                            textFontSize: 21,
                             is24Hour: false,
+
                         }}
                         onMonthYearChange={(month) => {
                             console.log("month: ", month);
@@ -66,8 +88,33 @@ const Employee = ({ navigation, route }) => {
                         onTimeChange={(time) => {
                             console.log("time: ", time);
                         }}
-                    />
-                </TouchableOpacity>
+                        configs={{
+                            dayNames: "Monday"
+                        }}
+
+                    /> */}
+
+                <Calendar
+                    style={calendar.calendarView}
+                    initialDate="2023-04-05"
+                    onDayPress={onDayPress}
+                    
+                    // Collection of dates that have to be marked. Default = {}
+                    // markedDates={{
+                    //     '2023-04-02': { selected: false, marked: true, selectedColor: 'blue' },
+                    //     '2023-04-03': { marked: true },
+                    //     '2023-04-04': { marked: true, dotColor: 'red', activeOpacity: 0 },
+                    //     '2023-04-10': { disabled: true, disableTouchEvent: true },
+                    //     '2023-04-07': { selected: false, marked: true, selectedColor: "violet" },
+                    // }}
+                    markingType="period"
+                    markedDates={days}
+                    renderDay={styles.Section}
+
+
+
+                />
+                {/* </TouchableOpacity> */}
 
                 <Text style={styles.sectionHeading}>Previous Sites  </Text>
 
@@ -140,7 +187,7 @@ const styles = StyleSheet.create({
     },
     Section: {
         padding: design.paddingSize,
-        flex: 1
+        flex: 1,
 
     },
     sectionHeading: {
@@ -189,3 +236,47 @@ const componentStyles = StyleSheet.create({
 
     }
 })
+
+const calendar = StyleSheet.create({
+    calendarView: {
+        flex: 1,
+        borderRadius: 11,
+        borderColor: palette.borderColor,
+        borderWidth: 1,
+        paddingVertical: 20
+    }
+})
+
+const renderDay = StyleSheet.create({
+    day: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+    },
+    present: {
+        backgroundColor: '#7bc043',
+    },
+    absent: {
+        backgroundColor: '#f44242',
+    },
+    late: {
+        backgroundColor: '#f4c141',
+    },
+    statusText: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+    presentText: {
+        color: '#fff',
+    },
+    absentText: {
+        color: '#fff',
+    },
+    lateText: {
+        color: '#333',
+    },
+});
