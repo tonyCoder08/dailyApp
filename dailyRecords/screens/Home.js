@@ -1,5 +1,5 @@
-import { Platform, ScrollView, StatusBar, TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import { ScrollView, StatusBar, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import EmployeeBox from "../components/EmployeeBox";
 import { design, palette, employees as employeeCon, sites as sitesCon } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
@@ -9,6 +9,8 @@ import Option from "../components/Option";
 import { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+
+
 const Home = ({ navigation }) => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
     const [showAddOption, setShowAddOption] = useState(false)
@@ -34,6 +36,12 @@ const Home = ({ navigation }) => {
         setSites(listJSON)
     }
 
+    const onButtonLayout = () => {
+        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
+            setButtonPosition({ x: pageX, y: pageY, width, height });
+        });
+    };
+
     useEffect(() => {
         if (isFocused) {
             getEmployees()
@@ -44,19 +52,11 @@ const Home = ({ navigation }) => {
         }
     }, [isFocused])
 
-
     useEffect(() => {
         onButtonLayout()
         getEmployees()
         getSites()
     }, [])
-
-
-    const onButtonLayout = () => {
-        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
-            setButtonPosition({ x: pageX, y: pageY, width, height });
-        });
-    };
 
     return (
         <View style={styles.container}>
@@ -80,12 +80,10 @@ const Home = ({ navigation }) => {
                         Contractor
                     </Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption}>
-
+                <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption} onLayout={onButtonLayout}>
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate("Settings")}>
-
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>
 
@@ -95,12 +93,8 @@ const Home = ({ navigation }) => {
                 <Option navigation={navigation} button={buttonPosition} />
             }
             <ScrollView style={styles.HomeSection} >
-
-
-
-
                 {/* dynamic employee */}
-                <Text style={styles.sectionHeading}>Employees </Text>
+                <Text style={styles.sectionHeading}>Employees</Text>
                 {
                     employees ?
                         employees?.map((employee) => <EmployeeBox id={employee.id} name={employee.name} profile={employee.profile} key={employee.id} currently={employee.currently} navigation={navigation} />)
@@ -109,9 +103,7 @@ const Home = ({ navigation }) => {
 
                 }
 
-
-
-                <Text style={styles.sectionHeading}>Sites  </Text>
+                <Text style={styles.sectionHeading}>Sites</Text>
 
                 {/* for sites */}
                 {sites ?
@@ -192,22 +184,5 @@ const styles = StyleSheet.create({
         fontSize: 15
         ,
         fontFamily: "Inter_400Regular"
-    }
-})
-
-const componentStyles = StyleSheet.create({
-    badge: {
-        padding: 3,
-        borderRadius: 9,
-        alignItems: "center",
-
-
-
-    },
-    badgeText: {
-        fontSize: 15,
-        fontFamily: "Inter_400Regular",
-        color: palette.successTextColor,
-
     }
 })

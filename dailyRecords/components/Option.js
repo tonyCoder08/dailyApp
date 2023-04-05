@@ -1,10 +1,9 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native"
-import { design, palette } from "../constants"
+import { palette } from "../constants"
 import { useEffect, useState } from "react"
 
 const Option = ({ button, navigation }) => {
     const [position, setPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
-    console.log(position)
     const handleEmployee = () => {
         navigation.navigate("AddEmployee")
     }
