@@ -126,20 +126,46 @@ const Employee = ({ navigation, route }) => {
                     // }}
                     markingType="period"
                     markedDates={days}
-                    enableSwipeMonths={true}
 
-                    renderDay={styles.Section}
+                    renderDay={renderDay}
+
+
+                    theme={{
+                        backgroundColor: '#ffffff',
+                        calendarBackground: '#ffffff',
+                        textSectionTitleColor: '#b6c1cd',
+                        textSectionTitleDisabledColor: '#d9e1e8',
+                        selectedDayBackgroundColor: '#00adf5',
+                        selectedDayTextColor: '#ffffff',
+                        todayTextColor: '#7209B7',
+                        dayTextColor: '#2d4150',
+                        textDisabledColor: '#d9e1e8',
+                        dotColor: '#00adf5',
+                        selectedDotColor: '#ffffff',
+                        arrowColor: '#7209B7',
+                        disabledArrowColor: '#d9e1e8',
+                        monthTextColor: '#7209B7',
+                        indicatorColor: 'blue',
+                        textDayFontFamily: 'Inter_400Regular',
+                        textMonthFontFamily: 'Inter_400Regular',
+                        textDayHeaderFontFamily: 'monospace',
+                        textDayFontWeight: '400',
+                        textMonthFontWeight: 'bold',
+                        textDayHeaderFontWeight: '300',
+                        textDayFontSize: 20,
+                        textMonthFontSize: 16,
+                        textDayHeaderFontSize: 16,
+                      }}
 
 
 
                 />
                 {/* </TouchableOpacity> */}
 
-                <Text style={styles.sectionHeading}>Previous Sites  </Text>
+                {/* <Text style={styles.sectionHeading}>Previous Sites  </Text> */}
 
                 {/* for sites */}
-                <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
-                    {/* sites  */}
+                {/* <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
                     <View style={styles.EmployeeDetails}>
                         <Text style={styles.employeeName}>
                             Client Name
@@ -147,9 +173,9 @@ const Employee = ({ navigation, route }) => {
                         <Text style={styles.atPlace}>
                             At. Address
                         </Text>
-                        {/* <View style={[componentStyles.badge, { backgroundColor: palette.blue }]}>
+                        <View style={[componentStyles.badge, { backgroundColor: palette.blue }]}>
                             <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>Done</Text>
-                        </View> */}
+                        </View>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} style={styles.SectionBox}>
@@ -161,12 +187,12 @@ const Employee = ({ navigation, route }) => {
                         <Text style={styles.atPlace}>
                             At. Address
                         </Text>
-                        {/* <View style={[componentStyles.badge, { backgroundColor: palette.success }]}>
+                        <View style={[componentStyles.badge, { backgroundColor: palette.success }]}>
                             <Text style={[componentStyles.badgeText, { color: palette.blueTextColor }]}>In Progress</Text>
-                        </View> */}
+                        </View>
 
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </ScrollView>
 
         </View>
