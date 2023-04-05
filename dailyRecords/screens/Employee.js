@@ -2,7 +2,7 @@ import { Platform, ScrollView, TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { design, palette, timeline } from "../constants";
 import Feather from '@expo/vector-icons/Feather';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { TimeDatePicker, Modes } from "react-native-time-date-picker";
 import { useCallback, useEffect, useState } from "react";
@@ -24,9 +24,9 @@ const Employee = ({ navigation, route }) => {
     })
     const employee = route.params?.employee
 
-    const getDayBgColor = () =>{
-        return day?.attendance == "Present"?timeline.present:timeline.absent
-    } 
+    const getDayBgColor = () => {
+        return day?.attendance == "Present" ? timeline.present : timeline.absent
+    }
     const time = new Date()
     const now = time.getTime()
     const handlePress = () => {
@@ -34,22 +34,28 @@ const Employee = ({ navigation, route }) => {
     }
 
     const onDayPress = useCallback((day) => {
-        navigation.navigate("Day",{day})
-      }, []);
+        navigation.navigate("Day", { day })
+    }, []);
 
 
     const addDay = () => {
-        setDays({...days,[day?.date]:{ disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" }})
+        setDays({ ...days, [day?.date]: { disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" } })
     }
 
 
+    const getDayData = async () => {
+        const data = await AsyncStorage.getItem("@days")
+        const dataJson = JSON.parse(data)
+        setDays(dataJson)
+    }
+
     useEffect(() => {
-        if(route.params) {
-            addDay()
+        if (isFocused) {
+            getDayData()
         }
-    },[isFocused])
-    
-    
+    }, [isFocused])
+
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -115,7 +121,7 @@ const Employee = ({ navigation, route }) => {
                     style={calendar.calendarView}
                     initialDate="2023-04-05"
                     onDayPress={onDayPress}
-                    
+
                     // Collection of dates that have to be marked. Default = {}
                     // markedDates={{
                     //     '2023-04-02': { selected: false, marked: true, selectedColor: 'blue' },
@@ -126,6 +132,8 @@ const Employee = ({ navigation, route }) => {
                     // }}
                     markingType="period"
                     markedDates={days}
+                    enableSwipeMonths={true}
+
                     renderDay={styles.Section}
 
 
