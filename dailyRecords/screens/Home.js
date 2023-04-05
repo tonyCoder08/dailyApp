@@ -8,28 +8,19 @@ import SiteBox from "../components/SiteBox";
 import Option from "../components/Option";
 import { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NavigationHelpersContext, useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 const Home = ({ navigation }) => {
-    const buttonRef = useRef(null);
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
-
-
-    const onButtonLayout = () => {
-        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
-            setButtonPosition({ x: pageX, y: pageY, width, height });
-        });
-    };
-
-
     const [showAddOption, setShowAddOption] = useState(false)
     const [employees, setEmployees] = useState([])
     const [sites, setSites] = useState([])
+    const buttonRef = useRef(null);
+    const isFocused = useIsFocused()
+
+
     const handleShowOption = () => {
         setShowAddOption(!showAddOption)
     }
-
-    const isFocused = useIsFocused()
-
 
     const getEmployees = async () => {
         const list = await AsyncStorage.getItem("@employees")
@@ -43,17 +34,10 @@ const Home = ({ navigation }) => {
         setSites(listJSON)
     }
 
-
-    const handleModal = () => {
-
-
-    }
-
     useEffect(() => {
         if (isFocused) {
             getEmployees()
             getSites()
-
         }
         if (!isFocused) {
             setShowAddOption(false)
@@ -62,10 +46,18 @@ const Home = ({ navigation }) => {
 
 
     useEffect(() => {
+        onButtonLayout()
         getEmployees()
         getSites()
-        onButtonLayout()
     }, [])
+
+
+    const onButtonLayout = () => {
+        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
+            setButtonPosition({ x: pageX, y: pageY, width, height });
+        });
+    };
+
     return (
         <View style={styles.container}>
             <StatusBar
@@ -98,10 +90,10 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>
-                {
-                    showAddOption &&
-                    <Option navigation={navigation} button={buttonPosition} />
-                }
+            {
+                showAddOption &&
+                <Option navigation={navigation} button={buttonPosition} />
+            }
             <ScrollView style={styles.HomeSection} >
 
 
@@ -188,7 +180,7 @@ const styles = StyleSheet.create({
         padding: design.paddingSize,
         flexDirection: "row",
         marginBottom: 10,
-        zIndex:1
+        zIndex: 1
     },
     EmployeeDetails: {
     },
