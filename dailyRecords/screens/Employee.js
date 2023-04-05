@@ -14,14 +14,7 @@ const Employee = ({ navigation, route }) => {
     const isFocused = useIsFocused()
     const day = route.params?.day
 
-    const [days, setDays] = useState({
-        '2023-04-04': { disabled: true, startingDay: true, color: '#48BFE3', endingDay: true },
-        '2023-04-01': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
-        '2023-04-02': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
-        '2023-04-03': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
-        '2023-04-07': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
-        '2023-04-05': { disable: true, color: "#5390D9", startingDay: true, endingDay: true, textColor: "white" },
-    })
+    const [days, setDays] = useState({})
     const employee = route.params?.employee
 
     const getDayBgColor = () => {
@@ -34,7 +27,7 @@ const Employee = ({ navigation, route }) => {
     }
 
     const onDayPress = useCallback((day) => {
-        navigation.navigate("Day", { day })
+        navigation.navigate("Day", { day,employee:employee.name })
     }, []);
 
 
@@ -44,7 +37,8 @@ const Employee = ({ navigation, route }) => {
 
 
     const getDayData = async () => {
-        const data = await AsyncStorage.getItem("@days")
+        const location= `@days-${employee.name}`
+        const data = await AsyncStorage.getItem(location)
         const dataJson = JSON.parse(data)
         setDays(dataJson)
     }

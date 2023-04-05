@@ -14,6 +14,7 @@ export default Day = ({navigation,route}) => {
     const [date,setDate]=useState("")
     const [storage,setStorage] =useState([])
     const day = route.params.day
+    const employee = route.params.employee
 
     useEffect(() => {
         setDate(day.dateString)
@@ -24,12 +25,7 @@ export default Day = ({navigation,route}) => {
     }
 
     const handleSaveDay =() =>{
-        // navigation.navigate("Employee",{day:{
-        //     attendance:attendance,
-        //     date:date,
-
-
-        // }})
+        navigation.goBack()
 
         let data= storage
         let newData = { ...data, [date]: { disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" }}
@@ -38,12 +34,14 @@ export default Day = ({navigation,route}) => {
     }
 
     const addDayToStorage = async (day) => {
+        const location= `@days-${employee}`
         const dayString = JSON.stringify(day)
-        await AsyncStorage.setItem("@days",dayString)
+        await AsyncStorage.setItem(location,dayString)
     }
 
     const getDayData = async () => {
-        const data = await AsyncStorage.getItem("@days")
+        const location= `@days-${employee}`
+        const data = await AsyncStorage.getItem(location)
         const dataJson = JSON.parse(data)
         setStorage(dataJson)
     }
