@@ -6,12 +6,21 @@ import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SiteBox from "../components/SiteBox";
 import Option from "../components/Option";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { useIsFocused } from "@react-navigation/native";
-
+import { NavigationHelpersContext, useIsFocused } from "@react-navigation/native";
 const Home = ({ navigation }) => {
+    const buttonRef = useRef(null);
+    const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
+
+
+    const onButtonLayout = () => {
+        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
+            setButtonPosition({ x: pageX, y: pageY, width, height });
+        });
+    };
+
+
     const [showAddOption, setShowAddOption] = useState(false)
     const [employees, setEmployees] = useState([])
     const [sites, setSites] = useState([])
@@ -35,13 +44,18 @@ const Home = ({ navigation }) => {
     }
 
 
+    const handleModal = () => {
+
+
+    }
+
     useEffect(() => {
         if (isFocused) {
             getEmployees()
             getSites()
 
         }
-        if(!isFocused) {
+        if (!isFocused) {
             setShowAddOption(false)
         }
     }, [isFocused])
@@ -50,6 +64,7 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         getEmployees()
         getSites()
+        onButtonLayout()
     }, [])
     return (
         <View style={styles.container}>
@@ -58,6 +73,7 @@ const Home = ({ navigation }) => {
                 backgroundColor={palette.primary}
                 barStyle={'dark-content'}
             />
+
             <View style={styles.headerContainer}>
                 <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
                 </Image>
@@ -72,7 +88,7 @@ const Home = ({ navigation }) => {
                         Contractor
                     </Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.6} onPress={handleShowOption}>
+                <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption}>
 
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
@@ -82,12 +98,13 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
 
             </View>
-            <ScrollView style={styles.HomeSection} >
-
                 {
                     showAddOption &&
-                    <Option navigation={navigation} />
+                    <Option navigation={navigation} button={buttonPosition} />
                 }
+            <ScrollView style={styles.HomeSection} >
+
+
 
 
                 {/* dynamic employee */}
@@ -108,7 +125,7 @@ const Home = ({ navigation }) => {
                 {sites ?
                     sites.map(site => <SiteBox id={site.id} key={site.id} client_name={site.client_name} address={site.address} state={site.state} navigation={navigation} />)
                     :
-                    sitesCon.map(site => <SiteBox id={site.id} key={site.id} architect={site.Architect} client_name={site.client_name} address={site.address} state={site.state} navigation={navigation}  />)
+                    sitesCon.map(site => <SiteBox id={site.id} key={site.id} architect={site.Architect} client_name={site.client_name} address={site.address} state={site.state} navigation={navigation} />)
 
                 }
             </ScrollView>
@@ -152,7 +169,7 @@ const styles = StyleSheet.create({
     },
     HomeSection: {
         padding: design.paddingSize,
-        flex: 1
+        flex: 1,
 
     },
     sectionHeading: {
@@ -170,7 +187,8 @@ const styles = StyleSheet.create({
         minHeight: 100,
         padding: design.paddingSize,
         flexDirection: "row",
-        marginBottom: 10
+        marginBottom: 10,
+        zIndex:1
     },
     EmployeeDetails: {
     },
