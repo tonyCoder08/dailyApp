@@ -16,10 +16,6 @@ const Employee = ({ navigation, route }) => {
 
     const [days, setDays] = useState({})
     const employee = route.params?.employee
-
-    const getDayBgColor = () => {
-        return day?.attendance == "Present" ? timeline.present : timeline.absent
-    }
     const time = new Date()
     const now = time.getTime()
     const handlePress = () => {
@@ -29,11 +25,6 @@ const Employee = ({ navigation, route }) => {
     const onDayPress = useCallback((day) => {
         navigation.navigate("Day", { day,employee:employee.name })
     }, []);
-
-
-    const addDay = () => {
-        setDays({ ...days, [day?.date]: { disable: false, color: getDayBgColor(), startingDay: true, endingDay: true, textColor: "white" } })
-    }
 
 
     const getDayData = async () => {
@@ -142,9 +133,9 @@ const Employee = ({ navigation, route }) => {
                         textDisabledColor: '#d9e1e8',
                         dotColor: '#00adf5',
                         selectedDotColor: '#ffffff',
-                        arrowColor: '#7209B7',
+                        arrowColor: timeline.primary,
                         disabledArrowColor: '#d9e1e8',
-                        monthTextColor: '#7209B7',
+                        monthTextColor: timeline.primary,
                         indicatorColor: 'blue',
                         textDayFontFamily: 'Inter_400Regular',
                         textMonthFontFamily: 'Inter_400Regular',
