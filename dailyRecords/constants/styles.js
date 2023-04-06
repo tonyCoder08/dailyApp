@@ -56,3 +56,11 @@ export const globalstyles = StyleSheet.create({
         color: "#D9D9D9",
     }
 })
+
+
+export const position = StyleSheet.create({
+    center:{
+        alignItems:"center",
+        justifyContent:"center"
+    }
+})

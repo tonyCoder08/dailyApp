@@ -22,29 +22,7 @@ const Home = ({ navigation }) => {
 
 
 
-    const auth = getAuth()
-
-    const email = "maddyyyyy6@gmail.com"
-    const password = "mahendra"
-    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user
-        console.log("sign upped")
-    }).catch(error => {
-        console.log(error)
-    })
-
-
-    const signInExistingUser =() => {
-
-        signInWithEmailAndPassword(auth,email,password).then((userCredential) => {
-            const user = userCredential.user
-            console.log("signned in")
-        }).catch((error)=> {
-            console.log(error)
-        })
-
-        
-    }
+    
 
 
 
@@ -133,7 +111,9 @@ const Home = ({ navigation }) => {
                 <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption} onLayout={onButtonLayout}>
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.6} onPress={createUserWithEmailAndPassword}>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => {
+                    navigation.navigate("SignIn")
+                }}>
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>
 
