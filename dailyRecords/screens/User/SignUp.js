@@ -3,10 +3,13 @@ import { globalstyles, position } from "../../constants/styles"
 import { useState } from "react"
 import { design, palette } from "../../constants"
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
-
+import { app } from "../../firebase"
+import { Feather } from '@expo/vector-icons';
 export default SignUp = ({navigation}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const [showPassword,setShowPassword] = useState(false)
 
     const handleSignUp = () => {
         if (email && password) {
@@ -25,28 +28,37 @@ export default SignUp = ({navigation}) => {
     }
 
 
-    const auth = getAuth()
-
+    
     const createUser = () => {
+        const auth = getAuth(app)
         createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = userCredential.user
-            ToastAndroid.show("Success!", ToastAndroid.SHORT)
-            console.log(user)
+            ToastAndroid.show("Registered!", ToastAndroid.SHORT)
+            goToHome()
         }).catch(error => {
-            console.log(error)
             ToastAndroid.show(error.code, ToastAndroid.SHORT)
         })
+    }
+
+    const goToHome =() => {
+        navigation.navigate("Home")
+    }
+
+
+    const handleShowPasswordButton =()=>{
+        setShowPassword(!showPassword)
     }
     return (
         <View style={globalstyles.container}>
             <View style={[globalstyles.Section, position.center]}>
                 {/* email input */}
-                <View style={[globalstyles.box, position.center]}>
-                    <TextInput style={styles.inputText} onChangeText={setEmail} placeholder="Email" ></TextInput>
+                <View style={[globalstyles.box]}>
+                    <TextInput style={styles.inputText} onChangeText={setEmail} placeholder="Email" returnKeyType="join" ></TextInput>
                 </View>
                 {/* password */}
-                <View style={[globalstyles.box, position.center]}>
-                    <TextInput style={styles.inputText} onChangeText={setPassword} placeholder="Password"></TextInput>
+                <View style={[globalstyles.box, position.center,styles.passwordInput]}>
+                    <TextInput secureTextEntry={true} style={[styles.inputText,styles.passwordInputText]}  keyboardType="visible-password" onChangeText={setPassword} placeholder="Password"></TextInput>
+                    <Feather onPress={handleShowPasswordButton} name={`${showPassword ? "eye-off":"eye"}`} size={24} color="black" />
                 </View>
 
             </View>
@@ -73,7 +85,7 @@ export default SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
     inputText: {
-        fontSize: 20
+        fontSize: 20,
     },
     shadow: {
         shadowColor: palette.pacificBlue,
@@ -108,5 +120,11 @@ const styles = StyleSheet.create({
     },
     buttonSecondary: {
 
+    },
+    passwordInput:{
+        flexDirection:"row"
+
+    },passwordInputText:{
+        flex:1
     }
 })

@@ -6,11 +6,10 @@ import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import SiteBox from "../components/SiteBox";
 import Option from "../components/Option";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
-import { auth, firestore } from "../firebase";
-import { createUserWithEmailAndPassword, getAuth,signInWithEmailAndPassword } from "firebase/auth";
+import Flow from "../context";
 
 const Home = ({ navigation }) => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -22,31 +21,9 @@ const Home = ({ navigation }) => {
 
 
 
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // use dataflow from context api
+    const {user,setUser} = useContext(Flow)
 
     const handleShowOption = () => {
         setShowAddOption(!showAddOption)
@@ -101,18 +78,18 @@ const Home = ({ navigation }) => {
                 <View style={{ flex: 1 }}>
                     {/* name */}
                     <Text style={styles.userName}>
-                        Nimbaram Suthar
+                        {user.name || "Nimbaram Suthar"}
                     </Text >
                     {/* designation */}
                     <Text style={styles.userDesignation}>
-                        Contractor
+                        {user.designation || "Contractor"}
                     </Text>
                 </View>
                 <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption} onLayout={onButtonLayout}>
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} onPress={() => {
-                    navigation.navigate("SignIn")
+                    navigation.navigate("Settings")
                 }}>
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />
                 </TouchableOpacity>

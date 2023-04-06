@@ -2,7 +2,8 @@ import { TouchableOpacity, View, TextInput, Text, StyleSheet, ToastAndroid } fro
 import { globalstyles, position } from "../../constants/styles"
 import { useState } from "react"
 import { design, palette } from "../../constants"
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { app } from "../../firebase"
 
 export default SignIn = ({ navigation }) => {
     const [email, setEmail] = useState("")
@@ -25,10 +26,11 @@ export default SignIn = ({ navigation }) => {
     }
 
 
-    const auth = getAuth()
 
 
     const signInExistingUser = () => {
+
+        const auth = getAuth(app)
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
