@@ -6,10 +6,7 @@ const FlowProvider = ({ children }) => {
         primary: 'dodgerblue',
         text: 'white',
     }
-    const [user,setUser] = useState({
-        name:"Mahendra Suthar",
-        designation:"Contractor"
-    })
+    const [user,setUser] = useState([])
 
     const [sites,setSites] = useState([])
     const [employees,setEmployees] = useState([])
