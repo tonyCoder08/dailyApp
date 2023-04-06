@@ -9,6 +9,7 @@ import SitePage from '../screens/SitePage';
 import Day from '../screens/Day';
 import SignIn from '../screens/User/SignIn';
 import SignUp from '../screens/User/SignUp';
+import Profile from '../screens/User/Profile';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -17,6 +18,7 @@ export default function StackNavigation() {
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
             <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
             <Stack.Screen name="Employee" component={Employee} options={{ headerShown: false }} />
             <Stack.Screen name="EmployeeProfile" component={EmployeeProfile} options={{ headerShown: false }} />
             <Stack.Screen name="Site" component={SitePage} options={{ headerShown: false }} />
