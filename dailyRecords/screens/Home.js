@@ -22,7 +22,6 @@ const Home = ({ navigation }) => {
     const buttonRef = useRef(null);
     const isFocused = useIsFocused()
 
-    // TODO:make function to get firestore data
     const getEmployeeFromFirestore = async () => {
         let _employees = []
         const q = query(collection(db, "employees"));
@@ -30,7 +29,6 @@ const Home = ({ navigation }) => {
         querySnapshot.forEach((doc) => {
             let _doc = doc.data()
             _employees.push(_doc)
-            console.log(_employees)
         });
         setEmployees(_employees)
 
@@ -38,7 +36,6 @@ const Home = ({ navigation }) => {
 
     // use dataflow from context api
     const { user, setUser, profile } = useContext(Flow)
-    // console.log("user", user)
     const userName = user.providerData[0].email
     const user_name = userName.split('@')[0]
     const handleShowOption = () => {

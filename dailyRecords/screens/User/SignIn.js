@@ -15,7 +15,7 @@ export default SignIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword,setShowPassword] = useState(false)
-    const {user,setUser,setLogged} = useContext(Flow)
+    const {user,setUser,setLogged,updateUser} = useContext(Flow)
 
     const handleSignIn = () => {
         shortVibrate()
@@ -57,6 +57,7 @@ export default SignIn = () => {
     const changeUserState = (_userData) => {
         setUser(_userData)
         setLogged(true)
+        updateUser(_userData)
     }
 
     const handleShowPasswordButton =() => {
