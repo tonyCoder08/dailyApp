@@ -24,6 +24,7 @@ const Home = ({ navigation }) => {
 
     // use dataflow from context api
     const {user,setUser} = useContext(Flow)
+    console.log("user",user)
 
     const handleShowOption = () => {
         setShowAddOption(!showAddOption)
@@ -78,11 +79,13 @@ const Home = ({ navigation }) => {
                 <View style={{ flex: 1 }}>
                     {/* name */}
                     <Text style={styles.userName}>
-                        {user.name || "Nimbaram Suthar"}
+                        {
+                            user.providerData[0].email || "Nimbaram Suthar"
+                        }
                     </Text >
                     {/* designation */}
                     <Text style={styles.userDesignation}>
-                        {user.designation || "Contractor"}
+                        Contractor
                     </Text>
                 </View>
                 <TouchableOpacity activeOpacity={0.6} ref={buttonRef} onPress={handleShowOption} onLayout={onButtonLayout}>
