@@ -54,6 +54,10 @@ export const globalstyles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         color: "#D9D9D9",
+    },
+    inputText:{
+        fontSize:15,
+        fontFamily:"Inter_400Regular"
     }
 })
 
