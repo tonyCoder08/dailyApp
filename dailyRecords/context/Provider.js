@@ -3,10 +3,11 @@ import Flow from "."
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 const tempProfile = 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg'
+const tempAvatar = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png'
 
 const FlowProvider = ({ children }) => {
     const [user, setUser] = useState([])
-    const [profile, setProfile] = useState(tempProfile)
+    const [profile, setProfile] = useState(tempAvatar)
     const [logged, setLogged] = useState(false)
     const [sites, setSites] = useState([])
     const [employees, setEmployees] = useState([])
