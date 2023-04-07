@@ -69,42 +69,8 @@ const Employee = ({ navigation, route }) => {
             <ScrollView style={styles.Section}>
 
                 <Text style={styles.sectionHeading}>Calendar </Text>
-
-                {/* for employees */}
-                {/* <TouchableOpacity activeOpacity={0.6} style={[styles.SectionBox, { alignContent: "center", alignItems: "center" }]}> */}
-                {/* <TimeDatePicker
-                        selectedDate={now}
-                        mode={Modes.calendar}
-                        options={{
-                            daysStyle: {
-                                borderRadius: 11,
-                                borderWidth: 0.5,
-                                borderColor: "#f1f1f1",
-                                fontSize: 20
-                            },
-                            defaultFont: "Inter_400Regular",
-                            textFontSize: 21,
-                            is24Hour: false,
-
-                        }}
-                        onMonthYearChange={(month) => {
-                            console.log("month: ", month);
-                        }}
-                        onSelectedChange={(selected) => {
-                            console.log("selected: ", selected);
-                        }}
-                        onTimeChange={(time) => {
-                            console.log("time: ", time);
-                        }}
-                        configs={{
-                            dayNames: "Monday"
-                        }}
-
-                    /> */}
-
                 <Calendar
                     style={calendar.calendarView}
-                    initialDate="2023-04-05"
                     onDayPress={onDayPress}
 
                     // Collection of dates that have to be marked. Default = {}
@@ -118,7 +84,6 @@ const Employee = ({ navigation, route }) => {
                     markingType="period"
                     markedDates={days}
 
-                    renderDay={renderDay}
 
 
                     theme={{
