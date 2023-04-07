@@ -28,7 +28,7 @@ const FlowProvider = ({ children }) => {
     const getLogged = async () => {
         const _logged = await AsyncStorage.getItem("@logged")
         const _loggedJSon = JSON.parse(_logged)
-        return _loggedJSon.isLogged
+        return _loggedJSon?.isLogged || false
     }
 
 
