@@ -5,6 +5,9 @@ import { palette } from "../constants";
 import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { app } from "../firebase";
+
 
 
 
@@ -50,7 +53,7 @@ const AddEmployee = ({ navigation }) => {
         }
         const list = storage
         list.push(data)
-
+        setFirestoreCollection()
         savetoStorage(list)
         goToHome()
     }
@@ -73,6 +76,28 @@ const AddEmployee = ({ navigation }) => {
     }
 
 
+
+    const setFirestoreCollection = async () => {
+        const db = getFirestore(app);
+
+        const data = {
+            id: id,
+            name,
+            email,
+            phone,
+            profile: image || tempAvatar
+        }
+        await setDoc(doc(db, "employees", name), {
+            name,
+            email,
+            phone,
+            profile:tempAvatar,
+            id:id
+        })
+        console.log("DONE")
+    }
+
+
     useEffect(() => {
         getData()
     }, [])
@@ -90,7 +115,7 @@ const AddEmployee = ({ navigation }) => {
             </View>
             <View style={globalstyles.Section}>
                 <View style={[globalstyles.box]}>
-                    <Image style={globalstyles.ownerProfile} source={{ width: 108, height: 108, uri: image ||  tempProfile}}>
+                    <Image style={globalstyles.ownerProfile} source={{ width: 108, height: 108, uri: image || tempProfile }}>
                     </Image>
                     <TouchableOpacity style={[globalstyles.box, { marginTop: 10 }]} onPress={pickImage}>
                         <Text style={styles.text}>
