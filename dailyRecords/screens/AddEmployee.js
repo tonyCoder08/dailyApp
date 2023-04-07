@@ -90,10 +90,9 @@ const AddEmployee = ({ navigation }) => {
             name,
             email,
             phone,
-            profile:tempAvatar,
+            profile:image || tempAvatar,
             id:id
         })
-        console.log("DONE")
     }
 
 
