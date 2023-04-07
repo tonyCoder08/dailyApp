@@ -11,6 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import Flow from "../context";
 import { shortVibrate } from "../constants/vibration";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Home = ({ navigation }) => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -20,8 +22,19 @@ const Home = ({ navigation }) => {
     const buttonRef = useRef(null);
     const isFocused = useIsFocused()
 
+    // TODO:make function to get firestore data
+    const getEmployeeFromFirestore = async () => {
+        let _employees = []
+        const q = query(collection(db, "employees"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            let _doc = doc.data()
+            _employees.push(_doc)
+            console.log(_employees)
+        });
+        setEmployees(_employees)
 
-
+    }
 
     // use dataflow from context api
     const { user, setUser } = useContext(Flow)
@@ -52,8 +65,11 @@ const Home = ({ navigation }) => {
 
     useEffect(() => {
         if (isFocused) {
-            getEmployees()
+            // getEmployees()
+            getEmployeeFromFirestore()
+
             getSites()
+
         }
         if (!isFocused) {
             setShowAddOption(false)
@@ -62,7 +78,8 @@ const Home = ({ navigation }) => {
 
     useEffect(() => {
         onButtonLayout()
-        getEmployees()
+        // getEmployees()
+        getEmployeeFromFirestore()
         getSites()
     }, [])
 
