@@ -4,18 +4,17 @@ import { useState } from "react"
 import { design, palette } from "../../constants"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { app } from "../../firebase"
+import { Feather } from '@expo/vector-icons';
 
 export default SignIn = ({ navigation }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showPassword,setShowPassword] = useState(false)
 
     const handleSignIn = () => {
         if (email && password) {
-
             signInExistingUser()
-            // createUser()
         } else {
-
             ToastAndroid.show("Enter Email and Password!", ToastAndroid.SHORT)
         }
     }
@@ -29,36 +28,41 @@ export default SignIn = ({ navigation }) => {
 
 
     const signInExistingUser = () => {
-
         const auth = getAuth(app)
-
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 ToastAndroid.show("Success Signin!", ToastAndroid.SHORT)
-                // ...
-                console.log(user)
+                goToHome()
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode, errorMessage)
                 ToastAndroid.show(errorCode, ToastAndroid.SHORT)
             });
 
 
     }
+    const goToHome =() => {
+        navigation.navigate("Home")
+    }
+
+    const handleShowPasswordButton =() => {
+        setShowPassword(!showPassword)
+    }
+
     return (
         <View style={globalstyles.container}>
             <View style={[globalstyles.Section, position.center]}>
                 {/* email input */}
-                <View style={[globalstyles.box, position.center]}>
+                <View style={[globalstyles.box]}>
                     <TextInput style={styles.inputText} onChangeText={setEmail} placeholder="Email" ></TextInput>
                 </View>
                 {/* password */}
-                <View style={[globalstyles.box, position.center]}>
-                    <TextInput style={styles.inputText} onChangeText={setPassword} placeholder="Password"></TextInput>
+                <View style={[globalstyles.box, position.center,styles.passwordInput]}>
+                    <TextInput secureTextEntry={true} style={[styles.inputText,styles.passwordInputText]}  keyboardType="visible-password" onChangeText={setPassword} placeholder="Password"></TextInput>
+                    <Feather onPress={handleShowPasswordButton} name={`${showPassword ? "eye-off":"eye"}`} size={24} color="black" />
                 </View>
 
             </View>
@@ -119,5 +123,11 @@ const styles = StyleSheet.create({
     },
     buttonSecondary: {
 
+    },
+    passwordInput:{
+        flexDirection:"row"
+
+    },passwordInputText:{
+        flex:1
     }
 })

@@ -2,9 +2,10 @@ import { TouchableOpacity, View, TextInput, Text, StyleSheet, ToastAndroid } fro
 import { globalstyles, position } from "../../constants/styles"
 import { useState } from "react"
 import { design, palette } from "../../constants"
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { app } from "../../firebase"
 import { Feather } from '@expo/vector-icons';
+
 export default SignUp = ({navigation}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -13,11 +14,8 @@ export default SignUp = ({navigation}) => {
 
     const handleSignUp = () => {
         if (email && password) {
-
-            // signInExistingUser()
             createUser()
         } else {
-
             ToastAndroid.show("Enter Email and Password!", ToastAndroid.SHORT)
         }
 
