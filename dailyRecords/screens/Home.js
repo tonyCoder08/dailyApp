@@ -24,9 +24,10 @@ const Home = ({ navigation }) => {
 
 
     // use dataflow from context api
-    const {user,setUser} = useContext(Flow)
-    console.log("user",user)
-
+    const { user, setUser } = useContext(Flow)
+    // console.log("user", user)
+    const userName = user.providerData[0].email
+    const user_name = userName.split('@')[0]
     const handleShowOption = () => {
         setShowAddOption(!showAddOption)
     }
@@ -81,7 +82,7 @@ const Home = ({ navigation }) => {
                     {/* name */}
                     <Text style={styles.userName}>
                         {
-                            user.providerData[0].email || "Nimbaram Suthar"
+                            user_name || "Nimbaram Suthar"
                         }
                     </Text >
                     {/* designation */}
