@@ -16,11 +16,11 @@ import Flow from '../context';
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigation() {
-    const {user} = useContext(Flow)
+    const {logged} = useContext(Flow)
     return (
         <Stack.Navigator>
             {
-                user ? (
+                !logged ? (
                     <>
                         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
                         <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
