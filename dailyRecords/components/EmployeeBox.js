@@ -24,12 +24,12 @@ const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
                 <Text style={styles.employeeName}>
                     {name}
                 </Text>
-                <Text style={styles.atPlace}>
-                    At.{" "}
+                {currently && <Text style={styles.atPlace}>
+                    At
                     <Text style={[styles.atPlace,{color:palette.blueTextColor,fontFamily:"Inter_400Regular"}]}>
                         {currently}
                     </Text>
-                </Text>
+                </Text>}
             </View>
         </TouchableOpacity>
     )
