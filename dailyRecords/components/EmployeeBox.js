@@ -6,6 +6,7 @@ import { shortVibrate } from "../constants/vibration";
 const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
 
     const handlePress = () => {
+        shortVibrate()
         navigation.navigate("Employee", {
             employee: {
                 id: id,
@@ -13,7 +14,6 @@ const EmployeeBox = ({ id, name, currently, profile, navigation }) => {
                 profile: profile
             }
         })
-        shortVibrate()
     }
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.6} style={styles.SectionBox}>
