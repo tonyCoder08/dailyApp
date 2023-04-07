@@ -7,6 +7,7 @@ import { app } from "../../firebase"
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native"
 import Flow from "../../context"
+import { shortVibrate } from "../../constants/vibration"
 
 export default SignIn = () => {
     const navigation = useNavigation()
@@ -17,6 +18,7 @@ export default SignIn = () => {
     const {user,setUser,setLogged} = useContext(Flow)
 
     const handleSignIn = () => {
+        shortVibrate()
         if (email && password) {
             signInExistingUser()
         } else {
@@ -26,6 +28,7 @@ export default SignIn = () => {
 
 
     const handleSignUpButton = () => {
+        shortVibrate()
         navigation.navigate("SignUp")
         
     }

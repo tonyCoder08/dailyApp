@@ -10,6 +10,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import Flow from "../context";
+import { shortVibrate } from "../constants/vibration";
 
 const Home = ({ navigation }) => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -92,6 +93,7 @@ const Home = ({ navigation }) => {
                     <Ionicons style={styles.headerIcon} name="ios-add-circle-outline" color={palette.textColor} size={30} />
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.6} onPress={() => {
+                    shortVibrate()
                     navigation.navigate("Settings")
                 }}>
                     <Feather style={styles.headerIcon} name="settings" color={palette.textColor} size={25} />

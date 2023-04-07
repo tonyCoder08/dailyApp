@@ -1,3 +1,4 @@
+import { shortVibrate } from "./vibration"
 
 export const settings = [
     {
@@ -5,6 +6,7 @@ export const settings = [
         title: "User Profile",
         action: (navigation) => {
             console.log("User Profile")
+            shortVibrate()
             navigation.navigate("Profile")
         }
 
@@ -14,6 +16,7 @@ export const settings = [
         title: "Options", 
         action: (navigation) => {
             console.log("Options")
+            shortVibrate()
             navigation.navigate("Options")
         }
 
@@ -24,6 +27,7 @@ export const settings = [
         title: "Help", 
         action: (navigation) => {
             console.log(" Help")
+            shortVibrate()
             navigation.navigate("Options")
             
         }

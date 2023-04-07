@@ -1,11 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { design, palette } from "../constants";
+import { shortVibrate } from "../constants/vibration";
 const Header = ({ title, navigation }) => {
     return (
         <View style={styles.headerContainer}>
 
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => {
+                shortVibrate()
+                navigation.goBack()
+            }}>
+
 
                 <Ionicons style={styles.headerIcon} name="ios-chevron-back-outline" size={32} color={palette.textColor} />
             </TouchableOpacity>

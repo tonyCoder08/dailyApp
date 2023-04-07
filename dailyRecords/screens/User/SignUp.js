@@ -6,6 +6,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { app } from "../../firebase"
 import { Feather } from '@expo/vector-icons';
 import Flow from "../../context"
+import { shortVibrate } from "../../constants/vibration"
 
 export default SignUp = ({navigation}) => {
     const [email, setEmail] = useState("")
@@ -15,6 +16,8 @@ export default SignUp = ({navigation}) => {
     const {user,setUser,setLogged} = useContext(Flow)
 
     const handleSignUp = () => {
+        shortVibrate()
+
         if (email && password) {
             createUser()
         } else {
@@ -24,6 +27,7 @@ export default SignUp = ({navigation}) => {
     }
 
     const handleSignInButton = () => {
+        shortVibrate()
         navigation.navigate("SignIn")
     }
 
