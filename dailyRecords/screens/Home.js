@@ -34,6 +34,18 @@ const Home = ({ navigation }) => {
 
     }
 
+    const getWorkspaceFromFireStore = async () => {
+        let _workspaces = []
+        const q = query(collection(db,"workspace_name"))
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((doc) => {
+            let _doc = doc.data()
+            _workspaces.push(_doc)
+
+        })
+        setSites(_workspaces)
+    }
+
     // use dataflow from context api
     const { user, setUser, profile } = useContext(Flow)
     const userName = user.providerData[0].email
@@ -64,8 +76,9 @@ const Home = ({ navigation }) => {
         if (isFocused) {
             // getEmployees()
             getEmployeeFromFirestore()
+            getWorkspaceFromFireStore()
 
-            getSites()
+            // getSites()
 
         }
         if (!isFocused) {
@@ -75,9 +88,8 @@ const Home = ({ navigation }) => {
 
     useEffect(() => {
         onButtonLayout()
-        // getEmployees()
         getEmployeeFromFirestore()
-        getSites()
+        getWorkspaceFromFireStore()
     }, [])
 
     return (
