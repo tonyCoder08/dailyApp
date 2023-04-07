@@ -1,15 +1,20 @@
 import { TouchableOpacity, View, TextInput, Text, StyleSheet, ToastAndroid } from "react-native"
 import { globalstyles, position } from "../../constants/styles"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { design, palette } from "../../constants"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { app } from "../../firebase"
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native"
+import Flow from "../../context"
 
-export default SignIn = ({ navigation }) => {
+export default SignIn = () => {
+    const navigation = useNavigation()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword,setShowPassword] = useState(false)
+    const {user,setUser,setLogged} = useContext(Flow)
 
     const handleSignIn = () => {
         if (email && password) {
@@ -22,6 +27,7 @@ export default SignIn = ({ navigation }) => {
 
     const handleSignUpButton = () => {
         navigation.navigate("SignUp")
+        
     }
 
 
@@ -34,7 +40,8 @@ export default SignIn = ({ navigation }) => {
                 // Signed in 
                 const user = userCredential.user;
                 ToastAndroid.show("Success Signin!", ToastAndroid.SHORT)
-                goToHome()
+                changeUserState(user)
+
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -44,8 +51,9 @@ export default SignIn = ({ navigation }) => {
 
 
     }
-    const goToHome =() => {
-        navigation.navigate("Home")
+    const changeUserState = (_userData) => {
+        setLogged(true)
+        setUser(_userData)
     }
 
     const handleShowPasswordButton =() => {
