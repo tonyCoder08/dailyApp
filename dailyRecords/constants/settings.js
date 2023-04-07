@@ -30,14 +30,14 @@ export const settings = [
 
 
     },
-    {
-        id: 4,
-        title: "Log Out", 
-        action: (navigation) => {
-            console.log("Logout")
-            navigation.navigate("Options")
-        }
+    // {
+    //     id: 4,
+    //     title: "Log Out", 
+    //     action: (navigation) => {
+    //         console.log("Logout")
+    //         navigation.navigate("Options")
+    //     }
 
-    }
+    // }
 
 ]
