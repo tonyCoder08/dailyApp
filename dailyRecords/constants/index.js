@@ -8,7 +8,13 @@ export const palette = {
     blue: "#70D4FF",
     blueTextColor: "#4291B2",
     yellow: "#FFE070",
-    yellowTextColor: "#FF7070"
+    yellowTextColor: "#FF7070",
+    pacificBlue:"#00B4D8"
+}
+export const timeline ={
+    present:"#4EA8DE",
+    absent:"#DC2F02",
+    primary:"#4EA8DE"
 }
 
 export const design = {

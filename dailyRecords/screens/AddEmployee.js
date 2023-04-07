@@ -1,14 +1,18 @@
-import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { globalstyles } from "../constants/styles";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { globalstyles, position } from "../constants/styles";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { palette } from "../constants";
 import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { app } from "../firebase";
+import { EvilIcons } from '@expo/vector-icons';
+import ProfilePicker from "../components/ProfilePicker";
 
 
 
-const tempProfile = 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg'
+
 const tempAvatar = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png'
 const AddEmployee = ({ navigation }) => {
     const [storage, setStorage] = useState([])
@@ -26,11 +30,10 @@ const AddEmployee = ({ navigation }) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [4, 4],
             quality: 1,
         });
 
-        console.log(result);
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
@@ -50,7 +53,7 @@ const AddEmployee = ({ navigation }) => {
         }
         const list = storage
         list.push(data)
-
+        setFirestoreCollection()
         savetoStorage(list)
         goToHome()
     }
@@ -73,6 +76,27 @@ const AddEmployee = ({ navigation }) => {
     }
 
 
+
+    const setFirestoreCollection = async () => {
+        const db = getFirestore(app);
+
+        const data = {
+            id: id,
+            name,
+            email,
+            phone,
+            profile: image || tempAvatar
+        }
+        await setDoc(doc(db, "employees", name), {
+            name,
+            email,
+            phone,
+            profile: image || tempAvatar,
+            id: id
+        })
+    }
+
+
     useEffect(() => {
         getData()
     }, [])
@@ -89,16 +113,7 @@ const AddEmployee = ({ navigation }) => {
                 </Text>
             </View>
             <View style={globalstyles.Section}>
-                <View style={[globalstyles.box]}>
-                    <Image style={globalstyles.ownerProfile} source={{ width: 108, height: 108, uri: image ||  tempProfile}}>
-                    </Image>
-                    <TouchableOpacity style={[globalstyles.box, { marginTop: 10 }]} onPress={pickImage}>
-                        <Text style={styles.text}>
-                            Add a profile
-                        </Text>
-
-                    </TouchableOpacity>
-                </View>
+                <ProfilePicker  _profile={image} setProfile={setImage}/>
 
 
                 <View style={globalstyles.box}>
@@ -141,6 +156,26 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         color: "#D9D9D9",
+    },
+    profileImage: {
+        borderRadius: 100
+    },
+    profileContainer: {
+        marginVertical: 10
+    },
+    badgeButton: {
+        backgroundColor: palette.primary,
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: palette.borderColor,
+        position: "absolute",
+        width: 45,
+        height: 45,
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        bottom: 10,
+        right: 10
     }
 })
 

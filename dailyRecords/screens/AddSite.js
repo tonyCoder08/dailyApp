@@ -4,17 +4,34 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { palette } from "../constants";
 import { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 const AddSite = ({ navigation }) => {
-    const [storage,setStorage] = useState([])
-    const [Architect,setArchitect] = useState("")
-    const [clientName,setClientName] = useState("")
-    const [email,setEmail] = useState("")
-    const [phone,setPhone] = useState("")
-    const [address,setAddress] = useState("")
+    const [storage, setStorage] = useState([])
+    const [Architect, setArchitect] = useState("")
+    const [clientName, setClientName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [address, setAddress] = useState("")
 
 
-    const date =new Date()
-    const id= date.getTime()
+    const date = new Date()
+    const id = date.getTime()
+
+    // firestore upload site
+    const setFirestoreCollectionSites = async () => {
+
+        await setDoc(doc(db, "workspace_name", clientName), {
+            id: id,
+            Architect: Architect || "unknown",
+            client_name: clientName || " unknown",
+            email: email || "unknown@gmail.com",
+            phone: phone || "919342349234",
+            address: address || "unknown",
+            state: "Not Started"
+        })
+        console.log("Site Uploaded")
+    }
 
 
 
@@ -23,34 +40,34 @@ const AddSite = ({ navigation }) => {
         const data = await AsyncStorage.getItem("@sites")
         const dataJSON = JSON.parse(data) || []
         setStorage(dataJSON)
-        
+
     }
 
 
     const saveSiteToStorage = async (_storage) => {
         const _storageJSON = JSON.stringify(_storage)
-        await AsyncStorage.setItem("@sites",_storageJSON)
+        await AsyncStorage.setItem("@sites", _storageJSON)
     }
 
     useEffect(() => {
         getSites()
 
-    },[])
+    }, [])
     const handleSave = () => {
-        if(clientName) {
+        if (clientName) {
             const siteData = {
-                id:id,
-                Architect:Architect || "unknown",
-                client_name:clientName ||" unknown",
-                email:email || "unknown@gmail.com",
-                phone:phone ||"919342349234",
-                address:address||"unknown",
-                state:"Not Started"
+                id: id,
+                Architect: Architect || "unknown",
+                client_name: clientName || " unknown",
+                email: email || "unknown@gmail.com",
+                phone: phone || "919342349234",
+                address: address || "unknown",
+                state: "Not Started"
             }
             const list = storage
             list.push(siteData)
-    
             saveSiteToStorage(list)
+            setFirestoreCollectionSites()
             goToHome()
         }
     }
@@ -82,7 +99,7 @@ const AddSite = ({ navigation }) => {
 
 
                 <View style={globalstyles.box}>
-                    <TextInput required onChangeText={setArchitect}  placeholder="Architect Name"></TextInput>
+                    <TextInput required onChangeText={setArchitect} placeholder="Architect Name"></TextInput>
                 </View>
                 <View style={globalstyles.box}>
                     <TextInput onChangeText={setClientName} placeholder="Client Name"></TextInput>

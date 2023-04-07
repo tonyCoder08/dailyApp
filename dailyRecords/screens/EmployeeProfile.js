@@ -3,24 +3,13 @@
 import { Image, ScrollView, StyleSheet, Systrace, Text, TouchableOpacity, View } from 'react-native'
 import { design, palette } from '../constants'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Header  from '../components/Header';
 const EmployeeProfile = ({ navigation, route }) => {
     const employee = route.params?.employee
-    const handleBackButton = () => {
-        navigation.goBack()
-    }
     return (
         <View style={styles.container}>
             {/* header */}
-            <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={handleBackButton}>
-
-                    <Ionicons style={styles.headerIcon} name="ios-chevron-back-outline" size={32} color={palette.textColor} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>
-                    Employee Profile
-                </Text>
-                
-            </View>
+            <Header title={"Employee Profile"} />
 
             {/* user profile */}
             <ScrollView style={styles.Section}>
