@@ -1,16 +1,18 @@
 import { TouchableOpacity, View, TextInput, Text, StyleSheet, ToastAndroid } from "react-native"
 import { globalstyles, position } from "../../constants/styles"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { design, palette } from "../../constants"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { app } from "../../firebase"
 import { Feather } from '@expo/vector-icons';
+import Flow from "../../context"
 
 export default SignUp = ({navigation}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const [showPassword,setShowPassword] = useState(false)
+    const {user,setUser,setLogged} = useContext(Flow)
 
     const handleSignUp = () => {
         if (email && password) {
@@ -32,14 +34,15 @@ export default SignUp = ({navigation}) => {
         createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = userCredential.user
             ToastAndroid.show("Registered!", ToastAndroid.SHORT)
-            goToHome()
+            changeUserState(user)
         }).catch(error => {
             ToastAndroid.show(error.code, ToastAndroid.SHORT)
         })
     }
 
-    const goToHome =() => {
-        navigation.navigate("Home")
+    const changeUserState = (_user) => {
+        setUser(_user)
+        setLogged(true)
     }
 
 
