@@ -55,8 +55,8 @@ export default SignIn = () => {
 
     }
     const changeUserState = (_userData) => {
-        setLogged(true)
         setUser(_userData)
+        setLogged(true)
     }
 
     const handleShowPasswordButton =() => {

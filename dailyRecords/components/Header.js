@@ -1,8 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View, useAnimatedValue } from "react-native"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { design, palette } from "../constants";
 import { shortVibrate } from "../constants/vibration";
-const Header = ({ title, navigation }) => {
+import { useNavigation } from '@react-navigation/native';
+
+const Header = ({ title }) => {
+    const navigation = useNavigation()
     return (
         <View style={styles.headerContainer}>
 
