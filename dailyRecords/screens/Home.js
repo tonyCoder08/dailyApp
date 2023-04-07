@@ -37,7 +37,7 @@ const Home = ({ navigation }) => {
     }
 
     // use dataflow from context api
-    const { user, setUser } = useContext(Flow)
+    const { user, setUser, profile } = useContext(Flow)
     // console.log("user", user)
     const userName = user.providerData[0].email
     const user_name = userName.split('@')[0]
@@ -92,7 +92,7 @@ const Home = ({ navigation }) => {
             />
 
             <View style={styles.headerContainer}>
-                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: 'https://fixthephoto.com/blog/images/uikit_slider/male-photo-edited-by-fixthephoto-service_1649799173.jpg' }}>
+                <Image style={styles.ownerProfile} source={{ width: 58, height: 58, uri: profile}}>
                 </Image>
                 {/* details */}
                 <View style={{ flex: 1 }}>
